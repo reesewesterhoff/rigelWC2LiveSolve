@@ -35,7 +35,7 @@ app.post( '/math', ( req, res )=>{
         answer = Number( req.body.num1 ) + Number( req.body.num2 );
     } // end *
     // add this solution to history
-    // send answer
     history.push( req.body );
+    // send answer
     res.send( { answer: answer } );
 }) // end /math POST
