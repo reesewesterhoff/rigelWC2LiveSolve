@@ -1,5 +1,4 @@
 $( document ).ready( readyNow );
-let currentNumber = '';
 let currentEquation = {
   num1: '',
   num2: '',
@@ -11,6 +10,8 @@ function clearAll(){
   currentEquation.num1 = '';
   currentEquation.num2 = '';
   currentEquation.operator = '';
+  let el = $( '#calculatorOutput' );
+  el.val( '0' );
   console.log( currentEquation );
 } //end clear all
 
@@ -24,9 +25,8 @@ function doMathNow(){
   }).then( function( response ){
     console.log( 'back from server with:', response );
     // show answer
-    let el = $( '#answerOut' );
-    el.empty();
-    el.append( response.answer );
+    let el = $( '#calculatorOutput' );
+    el.val( response.answer );
     // show history
     showHistory();
   }).catch( function( error ){
@@ -38,6 +38,7 @@ function doMathNow(){
 function setOperator(){
   console.log( 'in setOperator', $( this ).text() );
   currentEquation.operator = $( this ).text();
+  updateOutput()
   console.log( currentEquation );
 } // end setOperator
 
@@ -78,8 +79,14 @@ function updateNumber(){
     // if operator is set, affect num2
     currentEquation.num2 += $( this ).text();
   }
+  updateOutput();
   console.log( currentEquation );
 } // end updateNumber
+
+function updateOutput(){
+  let el = $( '#calculatorOutput' );
+  el.val( currentEquation.num1 + currentEquation.operator + currentEquation.num2 );
+} // end updateOutput
 
 function readyNow(){
   $( '#clearButton' ).on( 'click', clearAll );
