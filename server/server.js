@@ -30,12 +30,12 @@ app.post( '/math', ( req, res )=>{
     } // end *
     else if( req.body.operator === '/' ){
         answer = Number( req.body.num1 ) / Number( req.body.num2 );
-    } // end *
+    } // end /
     else{
         answer = Number( req.body.num1 ) + Number( req.body.num2 );
-    } // end *
+    } // end +
     // add this solution to history
-    // send answer
     history.push( req.body );
+    // send answer
     res.send( { answer: answer } );
 }) // end /math POST
