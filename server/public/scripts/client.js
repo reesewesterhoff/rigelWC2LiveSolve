@@ -5,6 +5,14 @@ let currentEquation = {
   operator: ''
 } // end currentEquation
 
+function readyNow(){
+  $( '#clearButton' ).on( 'click', clearAll );
+  $( '#equalsButton' ).on( 'click', doMathNow );
+  $( '.numberButton').on( 'click', updateNumber );
+  $( '.operatorButton').on( 'click', setOperator );
+  showHistory();
+} //end readyNow
+
 function clearAll(){
   console.log( 'in clearAll' );
   currentEquation.num1 = '';
@@ -88,10 +96,3 @@ function updateOutput(){
   el.val( currentEquation.num1 + currentEquation.operator + currentEquation.num2 );
 } // end updateOutput
 
-function readyNow(){
-  $( '#clearButton' ).on( 'click', clearAll );
-  $( '#equalsButton' ).on( 'click', doMathNow );
-  $( '.numberButton').on( 'click', updateNumber );
-  $( '.operatorButton').on( 'click', setOperator );
-  showHistory();
-} //end readyNow
