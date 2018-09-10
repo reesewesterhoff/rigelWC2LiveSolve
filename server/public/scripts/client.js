@@ -21,6 +21,12 @@ function doMathNow(){
     data: objectToSend
   }).then( function( response ){
     console.log( 'back from server with:', response );
+    // show answer
+    let el = $( '#answerOut' );
+    el.empty();
+    el.append( response.answer );
+    // show history
+    showHistory();
   }).catch( function( error ){
     console.log( 'error:', error );
     alert( 'error sending data to server' );
@@ -32,8 +38,36 @@ function setOperator(){
   currentOperator = $( this ).text();
 } // end setOperator
 
+function showHistory(){
+  console.log( 'in showHistory' );
+  // get history from server
+  $.ajax({
+    url: '/math',
+    method: 'GET'
+  }).then( function( response ){
+    console.log( 'back from GET with:', response );
+    let el = $( '#historyList' );
+    el.empty();
+    // loop through response
+    for( solution of response ){
+      // display each equation on DOM
+      el.append( `<li>
+      ${solution.num1} ${solution.operator} ${solution.num2}
+      </li>`);
+      // OR
+      // el.append( `<li>` + solution.num1 + ` ` +
+      // solution.operator + ` ` + solution.num2 +
+      // `</li>`);
+    } // end for
+  }).catch( function( error ){
+    console.log( 'error:', error );
+    alert( 'error retrieving history' );
+  }) // end AJAX 
+} // end showHistory
+
 function readyNow(){
   $( '#clearButton' ).on( 'click', clearAll );
   $( '#equalsButton' ).on( 'click', doMathNow );
   $( '.operatorButton').on( 'click', setOperator );
+  showHistory();
 } //end readyNow

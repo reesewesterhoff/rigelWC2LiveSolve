@@ -11,7 +11,8 @@ Base Mode
 - POST data to server
 - Do Server side Calculations
 - History on Server
-- Update Display on DOM
+- Display History
+- Display Answer
 
 Stretch Goals
 ---
