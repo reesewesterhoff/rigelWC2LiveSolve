@@ -4,7 +4,7 @@ You are going to be building a server-side calculator!
 
 The logic for the calculator **must** be implemented on the server. On the DOM, the user will input two values (2 input elements) and the select type of mathematical operation. The client side logic will capture this input, bundle it up in an object, and then send this object to the server via a POST.
 
-Create the user interface and appropriate event handlers that will take the user input and sends the information to the Server via a POST.
+Create the user interface and appropriate event handlers that takes the user input and sends the information to the Server via a POST.
 
 Build out the server-side logic to compute the numbers as appropriate. The server should be able to handle Addition, Subtraction, Multiplication, and Division. Once the calculation is complete, send it back to the client in an object where it should be displayed on the DOM.
 
