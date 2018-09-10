@@ -1,24 +1,26 @@
 $( document ).ready( readyNow );
-let currentOperator = '';
+let currentNumber = '';
+let currentEquation = {
+  num1: '',
+  num2: '',
+  operator: ''
+} // end currentEquation
 
 function clearAll(){
   console.log( 'in clearAll' );
+  currentEquation.num1 = '';
+  currentEquation.num2 = '';
+  currentEquation.operator = '';
+  console.log( currentEquation );
 } //end clear all
 
 function doMathNow(){
   console.log( 'in doMathNow' );
-  // get user input & combine with selected operator
-  let objectToSend = {
-    num1: $( '#num1In' ).val(),
-    num2: $( '#num2In' ).val(),
-    operator: currentOperator
-  } //end objectToSend
-  console.log( 'sending:', objectToSend );
   // send info to server via AJAX POST
   $.ajax({
     url: '/math',
     method: 'POST',
-    data: objectToSend
+    data: currentEquation
   }).then( function( response ){
     console.log( 'back from server with:', response );
     // show answer
@@ -35,7 +37,8 @@ function doMathNow(){
 
 function setOperator(){
   console.log( 'in setOperator', $( this ).text() );
-  currentOperator = $( this ).text();
+  currentEquation.operator = $( this ).text();
+  console.log( currentEquation );
 } // end setOperator
 
 function showHistory(){
@@ -65,9 +68,23 @@ function showHistory(){
   }) // end AJAX 
 } // end showHistory
 
+function updateNumber(){
+  console.log( 'in updateNumber:', $( this ).text() );
+  if( currentEquation.operator === '' ){
+    // update num1 if no operator set
+    currentEquation.num1 += $( this ).text();
+  }
+  else{
+    // if operator is set, affect num2
+    currentEquation.num2 += $( this ).text();
+  }
+  console.log( currentEquation );
+} // end updateNumber
+
 function readyNow(){
   $( '#clearButton' ).on( 'click', clearAll );
   $( '#equalsButton' ).on( 'click', doMathNow );
+  $( '.numberButton').on( 'click', updateNumber );
   $( '.operatorButton').on( 'click', setOperator );
   showHistory();
 } //end readyNow

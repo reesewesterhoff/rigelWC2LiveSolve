@@ -19,3 +19,6 @@ Stretch Goals
 
 - Clear button
 - Calculator Interface
+ - stub interface itself
+ - logic of putting together the objectToSend
+ - send test POST
